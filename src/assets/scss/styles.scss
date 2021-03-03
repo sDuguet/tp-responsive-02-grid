@@ -1,0 +1,65 @@
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* --- Couleur.etape2 --- */
+.el {
+  background-color: lightgray;
+}
+
+$types: alkaliMetal lanthanide nobleGas transitionMetal postTransitionMetal
+  alkalineEarthMetal actinide metalloid otherNonMetal;
+
+$color: 0deg;
+$rotate: 40deg;
+
+@each $type in $types {
+  $color: $color + $rotate;
+  .el--#{$type} {
+    background-color: hsl($color 80% 80%);
+  }
+}
+
+/* --- Tableau.etape3 --- */
+body {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-gap: 4px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.el {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+/* --- .etape4 --- */
+.el__name {
+  font-size: 10px;
+}
+
+/* --- .etape5 --- */
+@mixin for_desktop {
+  @media (min-width: 1400px) {
+    @content;
+  }
+}
+
+body {
+  @include for_desktop {
+    grid-template-columns: repeat(18, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+  }
+}
+
+@for $i from 1 through 18 {
+  [data-group="#{$i}"] {
+    @include for_desktop {
+      grid-column: $i;
+    }
+  }
+}
